@@ -81,6 +81,9 @@ class LinkedList:
         
     def del_last(self):
         cur = self.head
+        if self.len_link_list() == 1:
+            self.head = None
+            return
         #for _ in range(self.len_link_list()-2):
         while cur.next.next != None:
             cur = cur.next

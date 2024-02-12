@@ -8,6 +8,14 @@ class LinkedList:
             self.value = value
 
     head:Item = None
+    __count = 0
+
+    @property
+    def count(self):
+        return self.get_len()
+    
+    #@count.setter
+    #def count(self):
     
     def append_begin(self, value):
         item = LinkedList.Item()
@@ -28,7 +36,7 @@ class LinkedList:
         item.value = value
         current.next = item
     
-    def len_link_list(self):
+    def get_len(self):
         cur = self.head
         tot = 1
         while cur.next != None:
@@ -47,7 +55,7 @@ class LinkedList:
     def append_by_index(self, value, index):
         '''Метод всавляет значение по указанному индексу,
         оставшиеся элементы сдвигаются'''
-        dl = int(self.len_link_list())+1
+        dl = int(self.count)+1
 
         if abs(index) > dl:
             raise ValueError(f'Индекс {index} находится вне длины списка')
@@ -74,14 +82,18 @@ class LinkedList:
         item.next = posle
 
 
-    def del_first(self):
+    def remove_first(self):
+        if self.head == None:
+            raise ValueError('LinkedList пуст')
         cur = self.head
         next = cur.next
         self.head = next
         
-    def del_last(self):
+    def remove_last(self):
         cur = self.head
-        if self.len_link_list() == 1:
+        if self.head == None:
+            raise ValueError('LinkedList пуст')
+        if self.count() == 1:
             self.head = None
             return
         #for _ in range(self.len_link_list()-2):
@@ -89,8 +101,8 @@ class LinkedList:
             cur = cur.next
         cur.next = None
         
-    def del_po_ind(self, index):
-        dl = int(self.len_link_list())
+    def remove_at(self, index):
+        dl = int(self.count())
         
         if abs(index) > dl:
             raise ValueError(f'Индекс {index} находится вне длины списка')
@@ -112,7 +124,7 @@ class LinkedList:
         
         cur.next = cur.next.next
         
-    def del_first_zn(self, value):
+    def remove_first_value(self, value):
         if str(value) not in self.get_all_list().split():
             raise ValueError(f'Данного значения ({value}) нет в списке')
 
@@ -123,7 +135,7 @@ class LinkedList:
         cur.next = cur.next.next
         
 
-    def del_last_zn(self, value):
+    def remove_last_value(self, value):
 
         lst = self.get_all_list().split()
         if str(value) not in lst:
@@ -133,50 +145,50 @@ class LinkedList:
         while lst[tot] != str(value):
             tot -= 1
         
-        self.del_po_ind(tot)
+        self.remove_at(tot)
 
 
-#Формирование списка
-my_list = LinkedList()
-my_list.append_end(2)
-my_list.append_end(3)
-my_list.append_end(4)
-my_list.append_end(5)
-my_list.append_end(6)
-my_list.append_end(7)
-print(my_list.get_all_list(), end='\n\n')
+# #Формирование списка
+# my_list = LinkedList()
+# my_list.append_end(2)
+# my_list.append_end(3)
+# my_list.append_end(4)
+# my_list.append_end(5)
+# my_list.append_end(6)
+# my_list.append_end(7)
+# print(my_list.get_all_list(), end='\n\n')
 
-#Добавление по индексу
-my_list.append_by_index(33, -3)
-print(my_list.get_all_list(), end='\n\n')
+# #Добавление по индексу
+# my_list.append_by_index(33, -3)
+# print(my_list.get_all_list(), end='\n\n')
 
-#Удаление первого
-my_list.del_first()
-print(my_list.get_all_list(), end='\n\n')
+# #Удаление первого
+# my_list.del_first()
+# print(my_list.get_all_list(), end='\n\n')
 
-#Удаление последнего
-my_list.del_last()
-print(my_list.get_all_list(), end='\n\n')
+# #Удаление последнего
+# my_list.del_last()
+# print(my_list.get_all_list(), end='\n\n')
 
-#Удаление по индексу
-my_list.del_po_ind(-3)
-print(my_list.get_all_list(), end='\n\n')
+# #Удаление по индексу
+# my_list.del_po_ind(-3)
+# print(my_list.get_all_list(), end='\n\n')
 
-#Удаление первого вхождения
-my_list.append_end(4)
-print(my_list.get_all_list(), end='\n\n')
-my_list.del_first_zn(4)
-print(my_list.get_all_list(), end='\n\n')
+# #Удаление первого вхождения
+# my_list.append_end(4)
+# print(my_list.get_all_list(), end='\n\n')
+# my_list.del_first_zn(4)
+# print(my_list.get_all_list(), end='\n\n')
 
-#Удаление последнего вхождения
-my_list.append_end(33)
-print(my_list.get_all_list(), end='\n\n')
-my_list.del_last_zn(33)
-print(my_list.get_all_list(), end='\n\n')
-# print(my_list.head.value)
-# print(my_list.head.next.value)
-# print(my_list.head.next.next.value)
-# print(my_list.head.next.next.next.value)
-# print(my_list.head.next.next.next.next.value)
-# print(my_list.head.next.next.next.next.next.value)
-# print(my_list.head.next.next.next.next.next.next.value)
+# #Удаление последнего вхождения
+# my_list.append_end(33)
+# print(my_list.get_all_list(), end='\n\n')
+# my_list.del_last_zn(33)
+# print(my_list.get_all_list(), end='\n\n')
+# # print(my_list.head.value)
+# # print(my_list.head.next.value)
+# # print(my_list.head.next.next.value)
+# # print(my_list.head.next.next.next.value)
+# # print(my_list.head.next.next.next.next.value)
+# # print(my_list.head.next.next.next.next.next.value)
+# # print(my_list.head.next.next.next.next.next.next.value)]
